@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 
-public class Main {
+public class Day01 {
 
     public static void main(String[] args) throws IOException {
         List<String> content = Files.readAllLines(Paths.get("puzzleInputs/Day01.txt"));
