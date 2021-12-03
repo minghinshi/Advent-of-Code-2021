@@ -24,7 +24,7 @@ The elf hesitated for a moment. "Look... it doesn't matter if she's your friend 
 "I... I have no idea!"
 The elf sighed. "Bring her here. Quick."
 
-As Kris went to find Noelle, there was an announcement. "This is the captain, may I have you attention. An accident has just happened which resulted in sleigh keys being scattered all over the ocean. A submarine will be deployed soon. Please listen to the elves' order. Thank you."
+As Kris went to find Noelle, there was an announcement. "This is the captain, may I have your attention. An accident has just happened which resulted in sleigh keys being scattered all over the ocean. A submarine will be deployed soon. Please listen to the Elves' order. Thank you."
 "A submarine... is it really that serious of a problem..." Kris wondered.
 
 "So you're Noelle, right? Come on in, let's discuss this in the submarine." The elf stepped through the doors, and the two followed. The door closed behind them, and soon they were underwater.
@@ -35,10 +35,10 @@ As Kris went to find Noelle, there was an announcement. "This is the captain, ma
 "I- I'm sorry... Someone told me to help deliver them."
 "Exactly what I thought had happened. Is that an elf who asked you?"
 "Yes..."
-"You're innocent, then."
+"I see. Looks like you're innocent, then."
 "Thank you. I can go now... right... never mind. Wh- why am I brought underwater?"
 
-Kris and Noelle admired the festive lights, which were installed in the submarine for obvious reasons.
+Kris and Noelle could do nothing but admire the festive lights, which were installed in the submarine for obvious reasons.
 "Hey, you two..." the elf started. "Although you didn't mean to lose the sleigh keys, you did it anyways, so I would like you to assist us in getting them back."
 "You're just finding excuses, aren't you..." Kris replied.
 "Well, um... uh... yes."
@@ -54,7 +54,7 @@ Kris and Noelle admired the festive lights, which were installed in the submarin
 "Exactly. And you two will help me power it up."
 "And how?" Kris asked, getting somewhat impatient. "You still haven't told us what we should do."
 "You'll be solving puzzles!"
-"Puzzles? Kris really like puzzles."
+"Puzzles? Kris really likes puzzles."
 "Wait, Noelle, no-"
 "That's great! I'm sure you'll like helping us. Each puzzle you solve will get you a star, which will power up the antenna."
 "How many stars will it need?"
@@ -62,8 +62,10 @@ Kris and Noelle admired the festive lights, which were installed in the submarin
 "50 puzzles? No way I'm doing this!"
 "Don't worry. Each puzzle should be pretty small. Now, I want you to help me with this... Come over here."
 
+---Part 1---
+
 "See this big list of numbers?" The elf pointed at the small screen.
-"Yes..." Kris and Noelle glanced the screen. There's a number shown in each row of it.
+"Yes..." Kris and Noelle glanced at the screen. There's a number shown in each row of it.
 "This is the sonar sweep report."
 "What's a sonar sweep?" Kris asked.
 "It's like... you know, the submarine uses... sound waves to detect how deep the sea floor is." Noelle replied.
@@ -82,6 +84,38 @@ Kris and Noelle followed the elf to a room with a single computer. "We have a co
 "That's nice. You two will certainly be helpful then. Sorry if I caused much confusion."
 "It's fine. Everything's okay now! Just leave it to us!"
 "Alright. Get back to us soon!"
+
+---Part 2---
+
+"So how many increases did you two find?" said the elf.
+"1,766." Noelle said.
+"Hmm, 1,766..."
+"Is anything wrong?"
+"Not really... but I expected it to be a bit higher."
+"Huh? B- but that's a lot already!"
+"Well, provided that there's 2,000 measurements... it's quite high. But I think the noise in the data is decreasing the number."
+"Noise?" Kris wondered.
+"As in variation in the data. What if... how about this. We can use a three-measurement sliding window."
+Kris and Noelle stood in silence, in a vain attempt to understand what the elf said.
+"...by that, I mean we add up 3 numbers in a row, and then compare them to see if there's an increase."
+"So, for example... I add up 134, 138 and 142..." Noelle explained, trying to clear things up.
+"Yes."
+"Then I add up 138, 142 and 143..."
+"Yes."
+"Then I see which one is larger?"
+"There you go! Now you just need to count the number of increases again."
+"No problem! Kris and I will handle this!"
+
+Kris and Noelle went back to the computer room, where Kris modified their code. Noelle sat aside them and spectated.
+"Hey, Kris... you actually don't need to add up the numbers."
+"Huh? Why?" Kris kept typing the code.
+"You can ignore the middle digits!"
+"...I'm confused. What are 'middle digits'?"
+"Say you're comparing 1, 2 and 3 with 2, 3 and 4..."
+"Oh, I see! How haven't I thought of that?"
+"Got it?"
+"Yeah! I just need to compare 1 and 4! That's really clever, Noelle!"
+"Thanks, Kris!"
 */
 package com.company;
 import java.io.IOException;
@@ -97,6 +131,7 @@ public class Day01 {
             depths.add(Integer.parseInt(string));
         }
 
+        System.out.println();
         System.out.println("The depth measurement increases " + countIncreases(depths,1) + " times, without using averages.");
         System.out.println("The depth measurement increases " + countIncreases(depths,3) + " times, using averages of 3 depths.");
     }
@@ -110,3 +145,11 @@ public class Day01 {
         return count;
     }
 }
+/*
+"How many increases did you count this time?" The elf asked.
+"1,797. It's just a bit larger..." It was still Noelle who gave the figures.
+"It's fine. Now the number's about right. Oh look, the antenna's powered up."
+Kris and Noelle looked at the display, which showed 2 instead of 0.
+"We... did it? We solved the puzzles?" Noelle asked excitedly.
+"Yeah! We can move on to the next task.
+*/

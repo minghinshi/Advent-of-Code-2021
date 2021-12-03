@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Day03 {
     public static void main(String[] args) throws IOException {
+        long time = System.nanoTime();
         List<String> binaryStrings = Files.readAllLines(Paths.get("puzzleInputs/Day03.txt"));
         int binaryNumberLength = binaryStrings.get(0).length();
 
@@ -34,8 +35,8 @@ public class Day03 {
         List<String> carbonList = Files.readAllLines(Paths.get("puzzleInputs/Day03.txt"));
 
         for (int i = 0; i < binaryNumberLength; i++) {
-            oxygenList = eliminateBinaryStrings(oxygenList, findMostCommonBit(oxygenList, i), i);
-            carbonList = eliminateBinaryStrings(carbonList, !findMostCommonBit(carbonList, i), i);
+            eliminateBinaryStrings(oxygenList, findMostCommonBit(oxygenList, i), i);
+            eliminateBinaryStrings(carbonList, !findMostCommonBit(carbonList, i), i);
         }
 
         int oxygenRating = Integer.parseInt(oxygenList.get(0), 2);
@@ -57,8 +58,8 @@ public class Day03 {
         return ones * 2 >= binaryStrings.size();
     }
 
-    public static List<String> eliminateBinaryStrings(List<String> binaryStrings, boolean requiredBit, int position){
-        if (binaryStrings.size() == 1) return binaryStrings;
+    public static void eliminateBinaryStrings(List<String> binaryStrings, boolean requiredBit, int position){
+        if (binaryStrings.size() == 1) return;
         int i = 0;
         while (i < binaryStrings.size()){
             if(binaryStrings.get(i).charAt(position) != (requiredBit ? '1' : '0'))
@@ -66,6 +67,5 @@ public class Day03 {
             else
                 i++;
         }
-        return binaryStrings;
     }
 }
