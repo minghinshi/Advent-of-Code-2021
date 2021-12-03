@@ -18,7 +18,7 @@ Kris knew that this is another occasion where they had to comfort her. Since the
 "Noelle."
 "Is she an elf?"
 "No, she's a reindeer. Rudolph is her dad."
-The elf hesitated for a moment. "Look... it doesn't matter if she's your friend or Rudolph's daughter. Reindeers should only be responsible for delivery."
+The elf hesitated for a moment. "Look... it doesn't matter if she's your friend or Rudolph's daughter. Reindeers should only be responsible for gift delivery."
 "Then why does she have the sleigh keys?"
 "YOU should be the one answering this question!"
 "I... I have no idea!"
