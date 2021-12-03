@@ -78,7 +78,7 @@ Kris and Noelle admired the festive lights, which were installed in the submarin
 Kris and Noelle followed the elf to a room with a single computer. "We have a computer here, " the elf explained. "The sonar sweep report is saved to this computer already. I've also got IntelliJ installed in the computer."
 "IntelliJ? Oh, I know what it is! So I'm doing programming puzzles?" Kris asked excitedly.
 "Yeah, programming puzzles. You're not meant to calculate by hand."
-"...You really should have said this earlier!" Noelle cheerfully said. "Kris is an expert in programming."
+"...You really should have said this earlier!" Noelle cheerfully said. "Kris is an expert in programming!"
 "That's nice. You two will certainly be helpful then. Sorry if I caused much confusion."
 "It's fine. Everything's okay now! Just leave it to us!"
 "Alright. Get back to us soon!"
