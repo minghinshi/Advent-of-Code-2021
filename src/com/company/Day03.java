@@ -7,7 +7,6 @@ import java.util.List;
 
 public class Day03 {
     public static void main(String[] args) throws IOException {
-        long time = System.nanoTime();
         List<String> binaryStrings = Files.readAllLines(Paths.get("puzzleInputs/Day03.txt"));
         int binaryNumberLength = binaryStrings.get(0).length();
 
