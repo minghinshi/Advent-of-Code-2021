@@ -24,14 +24,14 @@
 --- Part 2 ---
 
 "So, we found that the submarine will move 2,010 forward and 1,030 down," Noelle reported.
-"1,030 down?" The elf asked, surprised. "Oh, right, I totally forgot to mention this."
+"1,030 down?" The elf asked, surprised. "Oh, right... I totally forgot to mention this."
 "What?"
 "The distance the submarine travels across should be in meters, but for the distance the submarine travels down..."
 "Huh? They have different units?"
-"Huh? They *have* units?" asked Kris.
+"Huh? They HAVE units?" asked Kris.
 "Yeah. It's in centimeters."
 "That's... I thought they used the same units."
-"Yeah, me too," Kris added. "I've never seen something like that before."
+"It's really weird," Kris added. "I've never seen something like that before."
 "I mean, yes, it's a little odd. So if you said it will travel 1,030 down, that's like 10 metres..."
 "That makes no sense!" Noelle laughed. "Kris, you're sure your code is correct, right?"
 "But then the instructions don't make sense, either! Why is it moving up and down just a few centimeters?"
@@ -44,7 +44,7 @@ The elf searched the drawers until he took out a booklet. "This is the submarine
 "Yeah, they're used to rotate the submarine. Did you think they were used for moving vertically?"
 "Of course! Why are they labelled 'up' and 'down'?"
 "Well... I don't know. Blame it on the programmer for bad naming skills, I guess."
-"Well... I mean... y... you're not wrong. I call my integers 'i' and my strings 's'."
+"Well... I mean... y... you're not wrong. I call my integers 'i' and my strings 's'. Guess every programmer does that."
 "Anyways, let's move on," Noelle said. "How do we find the vertical position?"
 "Here's how 'up' and 'down' really work. The submarine keeps track of a number which I'll call 'aim'. It controls the vertical rotation of the submarine. Say, if the aim is 10, then for every meter the submarine moves forward, it also moves down 10 centimeters."
 Kris and Noelle paused and thought for a moment.
@@ -132,5 +132,5 @@ class Movement{
 "Welcome back!" The elf greeted Kris and Noelle. "What do you get this time?"
 "2,010 down and 1,034,321 down. That's... about 10 kilometers underwater... are we going that deep?"
 "Let me see..." The elf grabbed a handwritten note. "That is where we're going! So our route is correct."
-"The antenna is now at 4. Nice job, Kris!" Noelle smiled, trying to hide her thoughts. "(10 kilometers... I must have messed up horribly...)"
+"Oh, look! The antenna is now at 4. Nice job, Kris!" Noelle smiled, trying to hide her thoughts. "10 kilometers... I must have messed up horribly..."
 */
