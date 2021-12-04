@@ -1,5 +1,5 @@
 /*
-"What's going on?" Kris looked around as the overboard alarm went off. They saw Noelle lying on the floor, seemingly injured. They rushed to help her.
+"What's going on?" Kris looked around as the overboard alarm went off. They saw Noelle lying on the floor, seemingly hurt. They rushed to help her.
 
 "Kris! What do I do now? I... I ruined it!"
 "Ruined what?"
@@ -7,18 +7,18 @@
 "Huh..." Kris walked towards the edge of the ship and looked down. Indeed, there were sleigh keys slowly drifting down into the ocean floor, becoming less and less visible.
 "What do I do... what do I do..." Noelle looked increasingly worried. "I'm always clumsy like this..."
 
-Kris knew that this is another occasion where they had to comfort her. Since the two friends were small, Noelle has always liked Kris telling her that everything is okay. But this time, they were not so sure what to say.
+Kris knew that this is another occasion where they had to comfort her. But this time, they were not so sure what to say.
 "Noelle... You wait here. I'll ask them what to do."
 
 "Someone dumped the sleigh keys into the ocean? Who is it?" asked an elf.
 "No... not dumped! It was an accident, she tripped-"
-"I don't care! Who did that? They ruined our Christmas!"
+"I don't care! Who did that? They're going to ruin our Christmas!"
 "My friend."
 "What's your friend's name?"
 "Noelle."
 "Is she an elf?"
 "No, she's a reindeer. Rudolph is her dad."
-The elf hesitated for a moment. "Look... it doesn't matter if she's your friend or Rudolph's daughter. Reindeers should only be responsible for delivery."
+The elf hesitated for a moment. "Look... it doesn't matter if she's your friend or Rudolph's daughter. Reindeers should only be responsible for gift delivery."
 "Then why does she have the sleigh keys?"
 "YOU should be the one answering this question!"
 "I... I have no idea!"
@@ -41,11 +41,12 @@ As Kris went to find Noelle, there was an announcement. "This is the captain, ma
 Kris and Noelle could do nothing but admire the festive lights, which were installed in the submarine for obvious reasons.
 "Hey, you two..." the elf started. "Although you didn't mean to lose the sleigh keys, you did it anyways, so I would like you to assist us in getting them back."
 "You're just finding excuses, aren't you..." Kris replied.
+"Yeah," Noelle added. "You said I should only deliver gifts."
 "Well, um... uh... yes."
 "What?" Noelle exclaimed.
 "L- listen- we... we can't deal with this situation alone. I actually wanted you two to help us get the sleigh keys back. It's not an easy task.
 "How?"
-"You see this thing here? The thing that says 0 right now.
+"You see this thing here? The thing that says 0 right now."
 "Yeah..."
 "That's showing the strength of our submarine's antenna."
 "The antenna? Let me guess... it could help us find the sleigh keys?"
@@ -56,7 +57,7 @@ Kris and Noelle could do nothing but admire the festive lights, which were insta
 "You'll be solving puzzles!"
 "Puzzles? Kris really likes puzzles."
 "Wait, Noelle, no-"
-"That's great! I'm sure you'll like helping us. Each puzzle you solve will get you a star, which will power up the antenna."
+"That's great! I'm sure you'll like helping us. Each puzzle you solve will get us a star, which will power up the antenna."
 "How many stars will it need?"
 "Again, we don't have an exact number, but I think around 50."
 "50 puzzles? No way I'm doing this!"
@@ -73,8 +74,8 @@ Kris and Noelle could do nothing but admire the festive lights, which were insta
 "I see. What am I gonna do?" said Kris.
 "You'll help us figure out how quickly the depth is increasing. Count the number of times that a measurement increased from the previous one."
 "What do you mean?"
-"Well, for example, the first number is 134, right? The second is 138, which is larger than 134, so that's 1 increase. The third number is 142, so that's 2 increases. Count until you reach the end of the list.
-"T... This is impossible! There's so many numbers! How am I-"
+"Well, for example, the first number is 134, right? The second is 138, which is larger than 134, so that's 1 increase. The third number is 142, so that's 2 increases. Count until you reach the end of the list."
+"T... This is impossible! There's... so many numbers! How am I-"
 "I knew you're going to ask this. Follow me."
 
 Kris and Noelle followed the elf to a room with a single computer. "We have a computer here, " the elf explained. "The sonar sweep report is saved to this computer already. I've also got IntelliJ installed in the computer."
@@ -91,11 +92,11 @@ Kris and Noelle followed the elf to a room with a single computer. "We have a co
 "1,766." Noelle said.
 "Hmm, 1,766..."
 "Is anything wrong?"
-"Not really... but I expected it to be a bit higher."
-"Huh? B- but that's a lot already!"
-"Well, provided that there's 2,000 measurements... it's quite high. But I think the noise in the data is decreasing the number."
+"Not really... but I expected it to be a bit higher. The sea floor appears to be quite steep."
+"Huh? But that's a lot already!"
+"Well, provided that there's 2,000 measurements... it's... quite high. But I think the noise in the data is decreasing the number."
 "Noise?" Kris wondered.
-"As in variation in the data. What if... how about this. We can use a three-measurement sliding window."
+"As in variation in the data. What if... hmm... how about this. We can use a three-measurement sliding window."
 Kris and Noelle stood in silence, in a vain attempt to understand what the elf said.
 "...by that, I mean we add up 3 numbers in a row, and then compare them to see if there's an increase."
 "So, for example... I add up 134, 138 and 142..." Noelle explained, trying to clear things up.
@@ -150,6 +151,6 @@ public class Day01 {
 "1,797. It's just a bit larger..." It was still Noelle who gave the figures.
 "It's fine. Now the number's about right. Oh look, the antenna's powered up."
 Kris and Noelle looked at the display, which showed 2 instead of 0.
-"We... did it? We solved the puzzles?" Noelle asked excitedly.
-"Yeah! We can move on to the next task.
+"We... did it? We solved the puzzles?" Noelle asked, slightly doubtful but excited."
+"Yeah! We can move on to the next task."
 */
