@@ -5,20 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-/*
-Which segments are on?
-    a   b   c   d   e   f   g
-0   1   1   1       1   1   1
-1           1           1
-2   1       1   1   1       1
-3   1       1   1       1   1
-4       1   1   1       1
-5   1   1       1       1   1
-6   1   1       1   1   1   1
-7   1       1           1
-8   1   1   1   1   1   1   1
-9   1   1   1   1       1   1
- */
 public class Day08 {
     public static void main(String[] args) throws IOException {
         List<String> content = Files.readAllLines(Paths.get("puzzleInputs/Day08.txt"));
