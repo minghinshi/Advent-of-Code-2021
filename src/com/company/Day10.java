@@ -121,7 +121,7 @@ class NavigationSubsystem{
         return corruptedLines.stream().mapToInt(BrokenLine::getSyntaxErrorScore).sum();
     }
 
-    public Long getMiddleCompletionScore(){
+    public long getMiddleCompletionScore(){
         return incompleteLines.stream().map(BrokenLine::getCompletionScore).sorted().collect(Collectors.toList()).get(incompleteLines.size() / 2);
     }
 }
