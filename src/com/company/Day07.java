@@ -17,7 +17,7 @@ public class Day07 {
     }
 
     public static void findLowestFuel (List<Integer> crabLocations, boolean useQuadraticFueling) {
-        System.out.printf("\nUsing %s fuel burning...\n", useQuadraticFueling ? "quadratic" : "linear");
+        System.out.printf("\nSimulating %s fuel burning...\n", useQuadraticFueling ? "quadratic" : "linear");
         int lowestFuel = totalFuel(crabLocations, 0, useQuadraticFueling);
         int targetLocation = 0;
         while (true){

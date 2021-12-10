@@ -31,7 +31,7 @@ public class Day06 {
                 for (long l : numberOfFish) {
                     total += l;
                 }
-                System.out.printf("After %d days, there would be %s lanternfish.\n", i+1, NumberFormat.getInstance().format(total));
+                System.out.printf("After %d days, there would be %s lanternfish.\n", i+1, total);
             }
         }
     }
