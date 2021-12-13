@@ -10,7 +10,10 @@ import java.util.List;
 public class Day12 {
     public static void main(String[] args) throws IOException {
         CaveMap caveMap = new CaveMap(Files.readAllLines(Paths.get("puzzleInputs/Day12.txt")));
-        System.out.println(caveMap.getNumberOfPaths());
+        System.out.println("\nFinding paths that visit small caves at most once...");
+        System.out.printf("Found %d paths.\n", caveMap.getNumberOfPaths(false));
+        System.out.println("\nFinding paths that visit one small cave at most twice...");
+        System.out.printf("Found %d paths.\n", caveMap.getNumberOfPaths(true));
     }
 }
 
@@ -27,8 +30,8 @@ class CaveMap{
         }
     }
 
-    public int getNumberOfPaths(){
-        Path path = new Path(caveHashMap.get("start"));
+    public int getNumberOfPaths(boolean allowVisitingSmallCavesTwice){
+        Path path = new Path(caveHashMap.get("start"), allowVisitingSmallCavesTwice);
         return path.getNumberOfPathsFromHere();
     }
 }
@@ -72,12 +75,12 @@ class Path{
     boolean isTerminal;
     boolean visitedSmallCaveTwice;
 
-    public Path(Cave cave){
+    public Path(Cave cave, boolean allowVisitingSmallCaveTwice){
         visitedCaves = new ArrayList<>();
         visitedCaves.add(cave);
         previousCave = cave;
         isTerminal = false;
-        visitedSmallCaveTwice = false;
+        visitedSmallCaveTwice = !allowVisitingSmallCaveTwice;
         findChildrenPaths();
     }
 
