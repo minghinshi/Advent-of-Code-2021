@@ -14,9 +14,7 @@ public class Day13 {
         System.out.printf("Activation code:\n%s", foldingPaper);
     }
 
-    public static int getHash(int[] dot){
-        return dot[1] * 65536 + dot[0];
-    }
+    public static int getHash(int[] dot){ return dot[1] * 65536 + dot[0]; }
 }
 
 class FoldingPaper{
