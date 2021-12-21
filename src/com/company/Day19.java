@@ -43,7 +43,7 @@ class BeaconScannerHandler{
         int max = 0;
         for (int i = 0; i < beaconScanners.size(); i++) {
             for (int j = i+1; j < beaconScanners.size(); j++) {
-                int distance = LinAlg.getTaxicabDistance(LinAlg.subtractVectors(beaconScanners.get(i).getPosition(), beaconScanners.get(j).getPosition()));
+                int distance = beaconScanners.get(i).getPosition().subtract(beaconScanners.get(j).getPosition()).taxicabDistance();
                 if(distance > max)
                     max = distance;
             }
@@ -63,9 +63,9 @@ class BeaconScannerHandler{
 class BeaconScanner{
     private final int number;
     private final List<Beacon> children = new ArrayList<>();
-    private int[] position;
+    private Vector position;
     private boolean isPositionFound;
-    BeaconScannerHandler handler;
+    private final BeaconScannerHandler handler;
 
     public BeaconScanner(BeaconScannerHandler handler, List<String> input, int number, boolean useAbsoluteLocation){
         this.handler = handler;
@@ -73,7 +73,7 @@ class BeaconScanner{
         for (String s : input) {
             int[] coordinates = Arrays.stream(s.split(",")).mapToInt(Integer::parseInt).toArray();
             if(useAbsoluteLocation){
-                position = new int[]{0,0,0};
+                position = new Vector();
                 isPositionFound = true;
             }else{
                 isPositionFound = false;
@@ -92,9 +92,9 @@ class BeaconScanner{
         List<Beacon> beaconsFromThisScanner = children;
         List<Beacon> beaconsFromOtherScanner = otherScanner.getChildren();
         for (Beacon beacon1 : beaconsFromThisScanner) {
-            int[] distancesFromBeacon1 = beaconsFromThisScanner.stream().mapToInt(e -> LinAlg.getSquaredMagnitude(LinAlg.subtractVectors(beacon1.getAbsoluteCoordinates(), e.getAbsoluteCoordinates()))).toArray();
+            int[] distancesFromBeacon1 = beaconsFromThisScanner.stream().mapToInt(e -> beacon1.getAbsoluteCoordinates().subtract(e.getAbsoluteCoordinates()).squareMagnitude()).toArray();
             for (Beacon beacon2 : beaconsFromOtherScanner) {
-                int[] distancesFromBeacon2 = beaconsFromOtherScanner.stream().mapToInt(e -> LinAlg.getSquaredMagnitude(LinAlg.subtractVectors(beacon2.getRelativeCoordinates(), e.getRelativeCoordinates()))).toArray();
+                int[] distancesFromBeacon2 = beaconsFromOtherScanner.stream().mapToInt(e -> beacon2.getRelativeCoordinates().subtract(e.getRelativeCoordinates()).squareMagnitude()).toArray();
                 List<Beacon> overlapForThisScanner = new ArrayList<>(), overlapForOtherScanner = new ArrayList<>();
                 for (int i = 0; i < distancesFromBeacon1.length; i++) {
                     for (int j = 0; j < distancesFromBeacon2.length; j++) {
@@ -115,9 +115,9 @@ class BeaconScanner{
     }
 
     public void updatePositions(List<Beacon> beacons1, List<Beacon> beacons2){
-        int[] vector1 = LinAlg.subtractVectors(beacons1.get(1).getAbsoluteCoordinates(), beacons1.get(0).getAbsoluteCoordinates());
-        int[] vector2 = LinAlg.subtractVectors(beacons2.get(1).getRelativeCoordinates(), beacons2.get(0).getRelativeCoordinates());
-        int[][] rotationMatrix = null;
+        Vector vector1 = beacons1.get(1).getAbsoluteCoordinates().subtract(beacons1.get(0).getAbsoluteCoordinates());
+        Vector vector2 = beacons2.get(1).getRelativeCoordinates().subtract(beacons2.get(0).getRelativeCoordinates());
+        Matrix rotationMatrix = null;
         boolean isOrientationFound = false;
 
         //Search orientation
@@ -125,8 +125,8 @@ class BeaconScanner{
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
-                    rotationMatrix = LinAlg.getRotationMatrix(Math.PI / 2 * i, Math.PI / 2 * j, Math.PI / 2 * k);
-                    if(LinAlg.areVectorsEqual(LinAlg.transformVector(vector2, rotationMatrix), vector1)) {
+                    rotationMatrix = new Matrix(Math.PI / 2 * i, Math.PI / 2 * j, Math.PI / 2 * k);
+                    if(vector1.equals(vector2.transform(rotationMatrix))) {
                         isOrientationFound = true;
                         break;
                     }
@@ -138,7 +138,7 @@ class BeaconScanner{
         if(!isOrientationFound) throw new RuntimeException("Orientation not found");
 
         //Find positions
-        position = LinAlg.subtractVectors(beacons1.get(0).getAbsoluteCoordinates(), LinAlg.transformVector(beacons2.get(0).getRelativeCoordinates(), rotationMatrix));
+        position = beacons1.get(0).getAbsoluteCoordinates().subtract(beacons2.get(0).getRelativeCoordinates().transform(rotationMatrix));
         isPositionFound = true;
         for (Beacon beacon : children) {
             beacon.setAbsoluteCoordinates(position, rotationMatrix);
@@ -153,7 +153,7 @@ class BeaconScanner{
         return number;
     }
 
-    public int[] getPosition() {
+    public Vector getPosition() {
         return position;
     }
 
@@ -163,32 +163,32 @@ class BeaconScanner{
 }
 
 class Beacon{
-    private final int[] relativeCoordinates = new int[3];
-    private int[] absoluteCoordinates = new int[3];
+    private final Vector relativeCoordinates;
+    private Vector absoluteCoordinates;
     private boolean found = false;
-    BeaconScannerHandler handler;
+    private final BeaconScannerHandler handler;
 
     public Beacon(BeaconScannerHandler handler, int[] coordinates, boolean useAbsolute){
         this.handler = handler;
-        System.arraycopy(coordinates, 0, relativeCoordinates, 0, 3);
+        relativeCoordinates = new Vector(coordinates);
         if(useAbsolute){
-            System.arraycopy(coordinates, 0, absoluteCoordinates, 0, 3);
-            handler.getKnownBeacons().putIfAbsent(LinAlg.getSquaredMagnitude(absoluteCoordinates), this);
+            absoluteCoordinates = new Vector(coordinates);
+            handler.getKnownBeacons().putIfAbsent(absoluteCoordinates.squareMagnitude(), this);
         }
     }
 
-    public int[] getRelativeCoordinates(){
+    public Vector getRelativeCoordinates(){
         return relativeCoordinates;
     }
 
-    public int[] getAbsoluteCoordinates() {
+    public Vector getAbsoluteCoordinates() {
         return absoluteCoordinates;
     }
 
-    public void setAbsoluteCoordinates(int[] originPosition, int[][] rotation) {
+    public void setAbsoluteCoordinates(Vector originPosition, Matrix rotation) {
         if(found) return;
         found = true;
-        absoluteCoordinates = LinAlg.addVectors(LinAlg.transformVector(relativeCoordinates, rotation), originPosition);
-        handler.getKnownBeacons().putIfAbsent(LinAlg.getSquaredMagnitude(absoluteCoordinates), this);
+        absoluteCoordinates = relativeCoordinates.transform(rotation).add(originPosition);
+        handler.getKnownBeacons().putIfAbsent(absoluteCoordinates.squareMagnitude(), this);
     }
 }

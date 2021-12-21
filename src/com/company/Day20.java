@@ -13,7 +13,7 @@ public class Day20 {
         for (int i = 0; i < 2; i++)
             automaton.stepAutomaton();
         System.out.printf("\nAfter 2 steps, %d pixels are lit.\n", automaton.countCells());
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 48; i++)
             automaton.stepAutomaton();
         System.out.printf("After 50 steps, %d pixels are lit.\n", automaton.countCells());
     }
