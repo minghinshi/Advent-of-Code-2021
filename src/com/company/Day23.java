@@ -42,10 +42,12 @@ class AmphipodQuestion{
             nodeHash = frontier.remove(0);
             AmphipodNode node = nodeMap.get(nodeHash);
             if(nodeHash == target){
-                System.out.printf("Solution found. Searched %d states in %.3f seconds.\n", explored.size(), (System.nanoTime() - nanoTime)*1e-9);
+                System.out.printf("Solution found! Searched %d nodes in %.3f seconds.\n", explored.size(), (System.nanoTime() - nanoTime)*1e-9);
                 return node.getEnergyCost();
             }
             explored.add(nodeHash);
+            if(explored.size() % 10000 == 0)
+                System.out.printf("%d nodes searched.\n", explored.size());
             for (AmphipodNode neighbour : node.getNeighbours()) {
                 nodeMap.putIfAbsent(neighbour.getHash(), neighbour);
                 if(!explored.contains(neighbour.getHash()) && !frontier.contains(neighbour.getHash()))
