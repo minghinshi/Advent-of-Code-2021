@@ -14,9 +14,9 @@ public class Day25 {
 }
 
 class CucumberAutomata {
-    private int[][] cells;
     private final int height;
     private final int length;
+    private int[][] cells;
 
     public CucumberAutomata(List<String> input) {
         height = input.size();

@@ -23,9 +23,9 @@ public class Day15 {
 class ChitonMap {
     private final ChitonNode[][] chitonNodes;
     private final List<ChitonNode> unvisitedNodes = new ArrayList<>();
-    private ChitonNode currentNode;
     private final int height;
     private final int length;
+    private ChitonNode currentNode;
 
     public ChitonMap(List<String> input, int scale) {
         int inputHeight = input.size();
@@ -112,9 +112,9 @@ class ChitonNode {
     private final int x;
     private final int y;
     private final int riskLevel;
+    private final List<ChitonNode> neighbours = new ArrayList<>();
     private int tentativeDistance;
     private boolean isVisited;
-    private final List<ChitonNode> neighbours = new ArrayList<>();
 
     public ChitonNode(int y, int x, int riskLevel, boolean isStart) {
         this.x = x;

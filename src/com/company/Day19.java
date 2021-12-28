@@ -62,9 +62,9 @@ class BeaconScannerHandler {
 class BeaconScanner {
     private final int number;
     private final List<Beacon> children = new ArrayList<>();
+    private final BeaconScannerHandler handler;
     private Vector position;
     private boolean isPositionFound;
-    private final BeaconScannerHandler handler;
 
     public BeaconScanner(BeaconScannerHandler handler, List<String> input, int number, boolean useAbsoluteLocation) {
         this.handler = handler;
@@ -163,9 +163,9 @@ class BeaconScanner {
 
 class Beacon {
     private final Vector relativeCoordinates;
+    private final BeaconScannerHandler handler;
     private Vector absoluteCoordinates;
     private boolean found = false;
-    private final BeaconScannerHandler handler;
 
     public Beacon(BeaconScannerHandler handler, int[] coordinates, boolean useAbsolute) {
         this.handler = handler;

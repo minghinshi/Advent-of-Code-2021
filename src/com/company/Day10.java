@@ -17,10 +17,9 @@ public class Day10 {
 }
 
 class BrokenLine {
+    private final boolean isIncomplete;
     private boolean isCorrupted;
     private int syntaxErrorScore;
-
-    private final boolean isIncomplete;
     private long completionScore;
 
     public BrokenLine(String string) {

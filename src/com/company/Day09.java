@@ -78,8 +78,8 @@ class HeightMap {
 class Location {
     private final int height;
     private final int riskLevel;
-    private boolean isLowPoint = true;
     private final List<Location> neighbours;
+    private boolean isLowPoint = true;
     private Basin basin;
 
     public Location(int height) {
