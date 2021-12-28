@@ -3,7 +3,10 @@ package com.company;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Day08 {
     public static void main(String[] args) throws IOException {
@@ -43,8 +46,7 @@ public class Day08 {
 
             //Step 4
             for (char c = 'a'; c <= 'g'; c++)
-                if(!cde.contains(c) && c != segmentMapping.get('a'))
-                    bfg.add(c);
+                if (!cde.contains(c) && c != segmentMapping.get('a')) bfg.add(c);
             for (String digit : digitsWithFiveSegments) {
                 char[] segments = digit.toCharArray();
                 boolean foundDigit = true;
@@ -61,7 +63,7 @@ public class Day08 {
                         break;
                     }
                 }
-                if(foundDigit) {
+                if (foundDigit) {
                     digitMapping.put(5, digit);
                     digitsWithFiveSegments.remove(digit);
                     break;
@@ -70,7 +72,7 @@ public class Day08 {
 
             //Step 5
             for (String digit : digitsWithFiveSegments) {
-                switch (subtractStrings(digitMapping.get(5), digit).size()){
+                switch (subtractStrings(digitMapping.get(5), digit).size()) {
                     case 1 -> digitMapping.put(3, digit);
                     case 2 -> digitMapping.put(2, digit);
                 }
@@ -134,16 +136,16 @@ public class Day08 {
                         easyDigits++;
                     }
                 }
-                outputValue += Math.pow(10, 3-i) * number;
+                outputValue += Math.pow(10, 3 - i) * number;
             }
             total += outputValue;
         }
         System.out.println();
-        System.out.printf("Digits 1, 4, 7 and 8 appear %d times.\n",easyDigits);
+        System.out.printf("Digits 1, 4, 7 and 8 appear %d times.\n", easyDigits);
         System.out.printf("The sum of output values is %d.\n", total);
     }
 
-    public static List<Character> subtractStrings(String stringToSubtractFrom, String stringToSubtract){
+    public static List<Character> subtractStrings(String stringToSubtractFrom, String stringToSubtract) {
         List<Character> characterList = new ArrayList<>();
         char[] arrayToSubtractFrom = stringToSubtractFrom.toCharArray(), arrayToSubtract = stringToSubtract.toCharArray();
         for (char c1 : arrayToSubtractFrom) {
@@ -154,8 +156,7 @@ public class Day08 {
                     break;
                 }
             }
-            if (!found)
-                characterList.add(c1);
+            if (!found) characterList.add(c1);
         }
         return characterList;
     }

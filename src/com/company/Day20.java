@@ -3,7 +3,6 @@ package com.company;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 public class Day20 {
@@ -19,12 +18,12 @@ public class Day20 {
     }
 }
 
-class ImageEnhancement{
+class ImageEnhancement {
     boolean[] rules = new boolean[512];
     boolean[][] cells;
     boolean areCellsOutsideBorderOn;
 
-    public ImageEnhancement(List<String> input){
+    public ImageEnhancement(List<String> input) {
         char[] ruleChars = input.get(0).toCharArray();
         for (int i = 0; i < ruleChars.length; i++) {
             rules[i] = ruleChars[i] == '#';
@@ -34,12 +33,12 @@ class ImageEnhancement{
         for (int i = 2; i < input.size(); i++) {
             char[] cellChars = input.get(i).toCharArray();
             for (int j = 0; j < cellChars.length; j++) {
-                cells[i-2][j] = cellChars[j] == '#';
+                cells[i - 2][j] = cellChars[j] == '#';
             }
         }
     }
 
-    public void stepAutomaton(){
+    public void stepAutomaton() {
         boolean[][] newCells = new boolean[cells.length + 2][cells[0].length + 2];
         for (int i = 0; i < newCells.length; i++) {
             for (int j = 0; j < newCells.length; j++) {
@@ -47,8 +46,8 @@ class ImageEnhancement{
                 for (int k = 0; k < 3; k++) {
                     for (int l = 0; l < 3; l++) {
                         int bitValue = (int) Math.pow(2, 8 - k * 3 - l);
-                        try{
-                            rule += cells[i+k-2][j+l-2] ? bitValue : 0;
+                        try {
+                            rule += cells[i + k - 2][j + l - 2] ? bitValue : 0;
                         } catch (Exception e) {
                             rule += areCellsOutsideBorderOn ? bitValue : 0;
                         }
@@ -61,7 +60,7 @@ class ImageEnhancement{
         areCellsOutsideBorderOn = rules[0] != areCellsOutsideBorderOn;
     }
 
-    public int countCells(){
+    public int countCells() {
         int count = 0;
         for (boolean[] row : cells) {
             for (boolean cell : row) {

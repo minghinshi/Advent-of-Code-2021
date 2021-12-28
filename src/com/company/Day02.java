@@ -80,7 +80,7 @@ public class Day02 {
         }
 
         System.out.printf("""
-                
+                                
                 Treating "up" and "down" as vertical movement...
                 The submarine will go forward %d metres and down %.0f metres.
                 (Part 1 solution: %d)          
@@ -90,14 +90,14 @@ public class Day02 {
         verticalTotal = 0;
 
         //Part 2
-        for (Movement movement : movements){
+        for (Movement movement : movements) {
             horizontalTotal += movement.getHorizontal();
             verticalTotal += movement.getHorizontal() * aim;
             aim += movement.getVertical();
         }
 
         System.out.printf("""
-                
+                                
                 Treating "up" and "down" as rotations...
                 The submarine will go forward %d metres and down %.0f metres.
                 (Part 2 solution: %d)
@@ -105,11 +105,11 @@ public class Day02 {
     }
 }
 
-class Movement{
+class Movement {
     int horizontal = 0;
     int vertical = 0;
 
-    public Movement(String input){
+    public Movement(String input) {
         String[] strings = input.split(" ");
         int magnitude = Integer.parseInt(strings[1]);
         switch (strings[0]) {

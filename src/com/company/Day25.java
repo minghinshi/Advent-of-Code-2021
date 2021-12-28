@@ -13,25 +13,25 @@ public class Day25 {
     }
 }
 
-class CucumberAutomata{
+class CucumberAutomata {
     private int[][] cells;
     private final int height;
     private final int length;
 
-    public CucumberAutomata(List<String> input){
+    public CucumberAutomata(List<String> input) {
         height = input.size();
         length = input.get(0).length();
         cells = new int[height][length];
         for (int i = 0; i < height; i++) {
             String s = input.get(i);
             for (int j = 0; j < length; j++) {
-                char c  = s.charAt(j);
+                char c = s.charAt(j);
                 cells[i][j] = c == '.' ? 0 : (c == '>' ? 1 : 2);
             }
         }
     }
 
-    public int stepAll(){
+    public int stepAll() {
         int numberOfSteps = 0;
         do {
             numberOfSteps++;
@@ -39,22 +39,22 @@ class CucumberAutomata{
         return numberOfSteps;
     }
 
-    public boolean step(){
+    public boolean step() {
         boolean moved = false;
 
         //Horizontal
         int[][] newCells = new int[height][length];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < length; j++) {
-                int prevX = (j+length-1)%length;
-                int nextX = (j+1)%length;
-                if(cells[i][j] == 1 && cells[i][nextX] == 0){
+                int prevX = (j + length - 1) % length;
+                int nextX = (j + 1) % length;
+                if (cells[i][j] == 1 && cells[i][nextX] == 0) {
                     newCells[i][j] = 0;
                     moved = true;
-                }else if(cells[i][j] == 0 && cells[i][prevX] == 1){
+                } else if (cells[i][j] == 0 && cells[i][prevX] == 1) {
                     newCells[i][j] = 1;
                     moved = true;
-                }else{
+                } else {
                     newCells[i][j] = cells[i][j];
                 }
             }
@@ -65,15 +65,15 @@ class CucumberAutomata{
         newCells = new int[height][length];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < length; j++) {
-                int prevY = (i+height-1)%height;
-                int nextY = (i+1)%height;
-                if(cells[i][j] == 2 && cells[nextY][j] == 0){
+                int prevY = (i + height - 1) % height;
+                int nextY = (i + 1) % height;
+                if (cells[i][j] == 2 && cells[nextY][j] == 0) {
                     newCells[i][j] = 0;
                     moved = true;
-                }else if(cells[i][j] == 0 && cells[prevY][j] == 2){
+                } else if (cells[i][j] == 0 && cells[prevY][j] == 2) {
                     newCells[i][j] = 2;
                     moved = true;
-                }else{
+                } else {
                     newCells[i][j] = cells[i][j];
                 }
             }

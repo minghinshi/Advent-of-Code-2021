@@ -16,16 +16,16 @@ public class Day19 {
     }
 }
 
-class BeaconScannerHandler{
+class BeaconScannerHandler {
     private final List<BeaconScanner> beaconScanners = new ArrayList<>();
     private final Map<Integer, Beacon> knownBeacons = new HashMap<>();
 
-    public BeaconScannerHandler(List<String> input){
+    public BeaconScannerHandler(List<String> input) {
         List<String> scannerInput = new ArrayList<>();
         int number = 0;
         for (int i = 1; i < input.size(); i++) {
             scannerInput.add(input.get(i));
-            if(i == input.size() - 1 || input.get(i + 1).isBlank()){
+            if (i == input.size() - 1 || input.get(i + 1).isBlank()) {
                 beaconScanners.add(new BeaconScanner(this, scannerInput, number, number == 0));
                 scannerInput.clear();
                 number++;
@@ -34,18 +34,17 @@ class BeaconScannerHandler{
         }
     }
 
-    public int getNumberOfBeacons(){
+    public int getNumberOfBeacons() {
         beaconScanners.get(0).checkAllScannersForOverLap();
         return knownBeacons.size();
     }
 
-    public int getMaximumDistance(){
+    public int getMaximumDistance() {
         int max = 0;
         for (int i = 0; i < beaconScanners.size(); i++) {
-            for (int j = i+1; j < beaconScanners.size(); j++) {
+            for (int j = i + 1; j < beaconScanners.size(); j++) {
                 int distance = beaconScanners.get(i).getPosition().subtract(beaconScanners.get(j).getPosition()).taxicabDistance();
-                if(distance > max)
-                    max = distance;
+                if (distance > max) max = distance;
             }
         }
         return max;
@@ -60,35 +59,35 @@ class BeaconScannerHandler{
     }
 }
 
-class BeaconScanner{
+class BeaconScanner {
     private final int number;
     private final List<Beacon> children = new ArrayList<>();
     private Vector position;
     private boolean isPositionFound;
     private final BeaconScannerHandler handler;
 
-    public BeaconScanner(BeaconScannerHandler handler, List<String> input, int number, boolean useAbsoluteLocation){
+    public BeaconScanner(BeaconScannerHandler handler, List<String> input, int number, boolean useAbsoluteLocation) {
         this.handler = handler;
         this.number = number;
         for (String s : input) {
             int[] coordinates = Arrays.stream(s.split(",")).mapToInt(Integer::parseInt).toArray();
-            if(useAbsoluteLocation){
+            if (useAbsoluteLocation) {
                 position = new Vector();
                 isPositionFound = true;
-            }else{
+            } else {
                 isPositionFound = false;
             }
             children.add(new Beacon(handler, coordinates, useAbsoluteLocation));
         }
     }
 
-    public void checkAllScannersForOverLap(){
+    public void checkAllScannersForOverLap() {
         for (BeaconScanner scanner : handler.getBeaconScanners()) {
-            if(!scanner.isPositionFound()) checkScannerForOverlap(scanner);
+            if (!scanner.isPositionFound()) checkScannerForOverlap(scanner);
         }
     }
 
-    public void checkScannerForOverlap(BeaconScanner otherScanner){
+    public void checkScannerForOverlap(BeaconScanner otherScanner) {
         List<Beacon> beaconsFromThisScanner = children;
         List<Beacon> beaconsFromOtherScanner = otherScanner.getChildren();
         for (Beacon beacon1 : beaconsFromThisScanner) {
@@ -98,13 +97,13 @@ class BeaconScanner{
                 List<Beacon> overlapForThisScanner = new ArrayList<>(), overlapForOtherScanner = new ArrayList<>();
                 for (int i = 0; i < distancesFromBeacon1.length; i++) {
                     for (int j = 0; j < distancesFromBeacon2.length; j++) {
-                        if(distancesFromBeacon1[i] == distancesFromBeacon2[j]){
+                        if (distancesFromBeacon1[i] == distancesFromBeacon2[j]) {
                             overlapForThisScanner.add(beaconsFromThisScanner.get(i));
                             overlapForOtherScanner.add(beaconsFromOtherScanner.get(j));
                         }
                     }
                 }
-                if(overlapForThisScanner.size() >= 12){
+                if (overlapForThisScanner.size() >= 12) {
                     System.out.printf("Scanners regions %d and %d overlap.\n", number, otherScanner.getNumber());
                     otherScanner.updatePositions(overlapForThisScanner, overlapForOtherScanner);
                     otherScanner.checkAllScannersForOverLap();
@@ -114,7 +113,7 @@ class BeaconScanner{
         }
     }
 
-    public void updatePositions(List<Beacon> beacons1, List<Beacon> beacons2){
+    public void updatePositions(List<Beacon> beacons1, List<Beacon> beacons2) {
         Vector vector1 = beacons1.get(1).getAbsoluteCoordinates().subtract(beacons1.get(0).getAbsoluteCoordinates());
         Vector vector2 = beacons2.get(1).getRelativeCoordinates().subtract(beacons2.get(0).getRelativeCoordinates());
         Matrix rotationMatrix = null;
@@ -126,16 +125,16 @@ class BeaconScanner{
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
                     rotationMatrix = new Matrix(Math.PI / 2 * i, Math.PI / 2 * j, Math.PI / 2 * k);
-                    if(vector1.equals(vector2.transform(rotationMatrix))) {
+                    if (vector1.equals(vector2.transform(rotationMatrix))) {
                         isOrientationFound = true;
                         break;
                     }
                 }
-                if(isOrientationFound) break;
+                if (isOrientationFound) break;
             }
-            if(isOrientationFound) break;
+            if (isOrientationFound) break;
         }
-        if(!isOrientationFound) throw new RuntimeException("Orientation not found");
+        if (!isOrientationFound) throw new RuntimeException("Orientation not found");
 
         //Find positions
         position = beacons1.get(0).getAbsoluteCoordinates().subtract(beacons2.get(0).getRelativeCoordinates().transform(rotationMatrix));
@@ -162,22 +161,22 @@ class BeaconScanner{
     }
 }
 
-class Beacon{
+class Beacon {
     private final Vector relativeCoordinates;
     private Vector absoluteCoordinates;
     private boolean found = false;
     private final BeaconScannerHandler handler;
 
-    public Beacon(BeaconScannerHandler handler, int[] coordinates, boolean useAbsolute){
+    public Beacon(BeaconScannerHandler handler, int[] coordinates, boolean useAbsolute) {
         this.handler = handler;
         relativeCoordinates = new Vector(coordinates);
-        if(useAbsolute){
+        if (useAbsolute) {
             absoluteCoordinates = new Vector(coordinates);
             handler.getKnownBeacons().putIfAbsent(absoluteCoordinates.squareMagnitude(), this);
         }
     }
 
-    public Vector getRelativeCoordinates(){
+    public Vector getRelativeCoordinates() {
         return relativeCoordinates;
     }
 
@@ -186,7 +185,7 @@ class Beacon{
     }
 
     public void setAbsoluteCoordinates(Vector originPosition, Matrix rotation) {
-        if(found) return;
+        if (found) return;
         found = true;
         absoluteCoordinates = relativeCoordinates.transform(rotation).add(originPosition);
         handler.getKnownBeacons().putIfAbsent(absoluteCoordinates.squareMagnitude(), this);

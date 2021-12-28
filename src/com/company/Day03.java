@@ -15,15 +15,13 @@ public class Day03 {
         int epsilonRate = 0;
 
         for (int i = 0; i < binaryNumberLength; i++) {
-            int increment = (int)Math.pow(2,binaryNumberLength-i-1);
-            if (findMostCommonBit(binaryStrings, i))
-                gammaRate += increment;
-            else
-                epsilonRate += increment;
+            int increment = (int) Math.pow(2, binaryNumberLength - i - 1);
+            if (findMostCommonBit(binaryStrings, i)) gammaRate += increment;
+            else epsilonRate += increment;
         }
 
         System.out.printf("""
-                
+                                
                 The gamma rate is %d.
                 The epsilon rate is %d.
                 The submarine is consuming %d watts.
@@ -41,30 +39,27 @@ public class Day03 {
         int oxygenRating = Integer.parseInt(oxygenList.get(0), 2);
         int carbonRating = Integer.parseInt(carbonList.get(0), 2);
         System.out.printf("""
-                
+                                
                 The oxygen generator rating is %d.
                 The CO2 scrubber rating is %d.
                 The life support rating is %d.
                 """, oxygenRating, carbonRating, oxygenRating * carbonRating);
     }
 
-    public static boolean findMostCommonBit(List<String> binaryStrings, int position){
+    public static boolean findMostCommonBit(List<String> binaryStrings, int position) {
         int ones = 0;
         for (String binaryString : binaryStrings) {
-            if(binaryString.charAt(position) == '1')
-                ones++;
+            if (binaryString.charAt(position) == '1') ones++;
         }
         return ones * 2 >= binaryStrings.size();
     }
 
-    public static void eliminateBinaryStrings(List<String> binaryStrings, boolean requiredBit, int position){
+    public static void eliminateBinaryStrings(List<String> binaryStrings, boolean requiredBit, int position) {
         if (binaryStrings.size() == 1) return;
         int i = 0;
-        while (i < binaryStrings.size()){
-            if(binaryStrings.get(i).charAt(position) != (requiredBit ? '1' : '0'))
-                binaryStrings.remove(i);
-            else
-                i++;
+        while (i < binaryStrings.size()) {
+            if (binaryStrings.get(i).charAt(position) != (requiredBit ? '1' : '0')) binaryStrings.remove(i);
+            else i++;
         }
     }
 }

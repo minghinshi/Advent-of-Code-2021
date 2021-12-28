@@ -15,28 +15,28 @@ public class Day14 {
         polymer.analyse(2);
     }
 
-    public static int getHash(char c1, char c2){
+    public static int getHash(char c1, char c2) {
         return c1 * 256 + c2;
     }
 
-    public static int getHash(char[] chars){
+    public static int getHash(char[] chars) {
         return getHash(chars[0], chars[1]);
     }
 }
 
-class Polymer{
+class Polymer {
     HashMap<Integer, Long> pairAmounts = new HashMap<>();
     HashMap<Integer, Character> pairInsertionRules = new HashMap<>();
     HashMap<Integer, char[]> pairs = new HashMap<>();
     char firstAtom, lastAtom;
     int expansions;
 
-    public Polymer(List<String> strings){
+    public Polymer(List<String> strings) {
         char[] polymer = strings.get(0).toCharArray();
         firstAtom = polymer[0];
         lastAtom = polymer[polymer.length - 1];
         for (int i = 0; i < polymer.length - 1; i++) {
-            int hash = Day14.getHash(polymer[i], polymer[i+1]);
+            int hash = Day14.getHash(polymer[i], polymer[i + 1]);
             pairAmounts.put(hash, pairAmounts.getOrDefault(hash, 0L) + 1);
         }
         for (int i = 2; i < strings.size(); i++) {
@@ -47,13 +47,13 @@ class Polymer{
         }
     }
 
-    public void repeatExpandPolymer(int expansions){
+    public void repeatExpandPolymer(int expansions) {
         for (int i = 0; i < expansions; i++) {
             expandPolymer();
         }
     }
 
-    public void expandPolymer(){
+    public void expandPolymer() {
         ++expansions;
         HashMap<Integer, Long> newPairAmounts = new HashMap<>();
         for (int hash : pairAmounts.keySet()) {
@@ -67,7 +67,7 @@ class Polymer{
         pairAmounts = newPairAmounts;
     }
 
-    HashMap<Character, Long> countAtoms(){
+    HashMap<Character, Long> countAtoms() {
         HashMap<Character, Long> atoms = new HashMap<>();
         atoms.put(firstAtom, 1L);
         atoms.put(lastAtom, 1L);
@@ -81,26 +81,25 @@ class Polymer{
         return atoms;
     }
 
-    public void analyse(int part){
+    public void analyse(int part) {
         HashMap<Character, Long> atoms = countAtoms();
         char rareAtom = 0, commonAtom = 0;
         long smallest = 0, largest = 0;
         boolean initialized = false;
         for (char element : atoms.keySet()) {
             long amount = atoms.get(element);
-            if(!initialized || amount < smallest){
+            if (!initialized || amount < smallest) {
                 smallest = amount;
                 rareAtom = element;
             }
-            if(!initialized || amount > largest){
+            if (!initialized || amount > largest) {
                 largest = amount;
                 commonAtom = element;
             }
-            if(!initialized) initialized = true;
+            if (!initialized) initialized = true;
         }
 
-        System.out.printf("\nAfter %d expansions,\nthe most common element is %s, occurring %d times;\nThe least common element is %s, occurring %d times.\n(Part %d solution: %d)\n",
-                expansions, commonAtom, largest, rareAtom, smallest, part, largest - smallest);
+        System.out.printf("\nAfter %d expansions,\nthe most common element is %s, occurring %d times;\nThe least common element is %s, occurring %d times.\n(Part %d solution: %d)\n", expansions, commonAtom, largest, rareAtom, smallest, part, largest - smallest);
     }
 
     @Override

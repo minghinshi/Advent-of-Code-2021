@@ -119,9 +119,12 @@ Kris and Noelle went back to the computer room, where Kris modified their code. 
 "Thanks, Kris!"
 */
 package com.company;
+
 import java.io.IOException;
-import java.nio.file.*;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Day01 {
     public static void main(String[] args) throws IOException {
@@ -133,15 +136,14 @@ public class Day01 {
         }
 
         System.out.println();
-        System.out.println("The depth measurement increases " + countIncreases(depths,1) + " times, without using averages.");
-        System.out.println("The depth measurement increases " + countIncreases(depths,3) + " times, using averages of 3 depths.");
+        System.out.println("The depth measurement increases " + countIncreases(depths, 1) + " times, without using averages.");
+        System.out.println("The depth measurement increases " + countIncreases(depths, 3) + " times, using averages of 3 depths.");
     }
 
-    public static int countIncreases(List<Integer> integerList, int slidingWindow){
+    public static int countIncreases(List<Integer> integerList, int slidingWindow) {
         int count = 0;
         for (int i = slidingWindow; i < integerList.size(); i++) {
-            if(integerList.get(i) > integerList.get((i-slidingWindow)))
-                ++count;
+            if (integerList.get(i) > integerList.get((i - slidingWindow))) ++count;
         }
         return count;
     }

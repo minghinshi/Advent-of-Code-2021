@@ -10,25 +10,25 @@ public class Day24 {
     public static void main(String[] args) throws IOException {
         List<String> input = Files.readAllLines(Paths.get("puzzleInputs/Day24.txt"));
         MONADSolver monadSolver = new MONADSolver(input);
-        System.out.printf("\nThe greatest model number is %d.\n",monadSolver.solve(false));
-        System.out.printf("The smallest model number is %d.\n",monadSolver.solve(true));
+        System.out.printf("\nThe greatest model number is %d.\n", monadSolver.solve(false));
+        System.out.printf("The smallest model number is %d.\n", monadSolver.solve(true));
     }
 }
 
-class MONADSolver{
+class MONADSolver {
     ALUModel aluModel;
 
-    public MONADSolver(List<String> input){
+    public MONADSolver(List<String> input) {
         aluModel = new ALUModel(input);
     }
 
-    public long solve(boolean lowest){
+    public long solve(boolean lowest) {
         return solve(new int[0], lowest);
     }
 
-    public long solve(int[] currentNumber, boolean lowest){
+    public long solve(int[] currentNumber, boolean lowest) {
         int currentIndex = currentNumber.length;
-        if(currentIndex == 14){
+        if (currentIndex == 14) {
             int[] aluOutput = aluModel.execute(currentNumber);
             if (aluOutput[3] == 0) {
                 long solution = 0;
@@ -38,32 +38,32 @@ class MONADSolver{
                 return solution;
             }
         }
-        if(aluModel.requireMatching[currentIndex]){
+        if (aluModel.requireMatching[currentIndex]) {
             int[] input = new int[currentIndex + 1];
-            System.arraycopy(currentNumber,0, input,0,currentIndex);
+            System.arraycopy(currentNumber, 0, input, 0, currentIndex);
             int[] aluOutput = aluModel.execute(input, currentIndex * 18 + 6);
-            if(aluOutput[1] >= 1 && aluOutput[1] <= 9){
+            if (aluOutput[1] >= 1 && aluOutput[1] <= 9) {
                 input[currentIndex] = aluOutput[1];
-                return solve(input,lowest);
+                return solve(input, lowest);
             }
-        }else{
+        } else {
             for (int i = 1; i <= 9; i++) {
                 int[] newNumber = new int[currentIndex + 1];
-                System.arraycopy(currentNumber,0,newNumber,0,currentIndex);
-                newNumber[currentIndex] = (lowest ? i : 10-i);
-                long solution = solve(newNumber,lowest);
-                if(solution != -1) return solution;
+                System.arraycopy(currentNumber, 0, newNumber, 0, currentIndex);
+                newNumber[currentIndex] = (lowest ? i : 10 - i);
+                long solution = solve(newNumber, lowest);
+                if (solution != -1) return solution;
             }
         }
         return -1;
     }
 }
 
-class ALUModel{
+class ALUModel {
     boolean[] requireMatching = new boolean[14];
     List<ALUInstruction> instructions;
 
-    public ALUModel(List<String> puzzleInput){
+    public ALUModel(List<String> puzzleInput) {
         for (int i = 0; i < 14; i++) {
             for (int j = i * 18; j < (i + 1) * 18; j++) {
                 if (puzzleInput.get(j).contains("-")) {
@@ -75,12 +75,12 @@ class ALUModel{
         instructions = puzzleInput.stream().map(ALUInstruction::new).collect(Collectors.toList());
     }
 
-    public int[] execute(int[] inputs){
+    public int[] execute(int[] inputs) {
         return execute(inputs, instructions.size());
     }
 
     //ALU interpreter
-    public int[] execute(int[] inputs, int haltAt){
+    public int[] execute(int[] inputs, int haltAt) {
         int[] registers = new int[4];
         int inputPointer = 0;
         for (int i = 0; i < haltAt; i++) {
@@ -103,13 +103,13 @@ class ALUModel{
     }
 }
 
-class ALUInstruction{
+class ALUInstruction {
     int type, operand1, operand2;
     boolean isLiteralValue;
 
-    public ALUInstruction(String instruction){
+    public ALUInstruction(String instruction) {
         String[] strings = instruction.split(" ");
-        switch(strings[0]){
+        switch (strings[0]) {
             case "inp" -> type = 0;
             case "add" -> type = 1;
             case "mul" -> type = 2;
@@ -118,7 +118,7 @@ class ALUInstruction{
             case "eql" -> type = 5;
         }
         operand1 = getRegister(strings[1]);
-        if(type != 0) {
+        if (type != 0) {
             try {
                 operand2 = Integer.parseInt(strings[2]);
                 isLiteralValue = true;
@@ -129,7 +129,7 @@ class ALUInstruction{
         }
     }
 
-    public int getRegister(String s){
+    public int getRegister(String s) {
         return switch (s) {
             case "w" -> 0;
             case "x" -> 1;

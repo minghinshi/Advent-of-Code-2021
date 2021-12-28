@@ -42,7 +42,7 @@ public class Day05 {
     }
 }
 
-class LineOfVents{
+class LineOfVents {
     int xStart;
     int yStart;
     int xEnd;
@@ -54,7 +54,7 @@ class LineOfVents{
 
     boolean isVertical = false;
 
-    public LineOfVents(String s){
+    public LineOfVents(String s) {
         String[] strings = s.split(" -> ");
         String[] start = strings[0].split(",");
         xStart = Integer.parseInt(start[0]);
@@ -72,14 +72,12 @@ class LineOfVents{
         }
     }
 
-    public int[][] fillVents(int[][] grid, boolean calculateDiagonals){
-        if(!calculateDiagonals) {
-            if (isVertical)
-                for (int y = Math.min(yStart, yEnd); y <= Math.max(yStart, yEnd); y++)
-                    grid[xIntercept][y]++;
-            else if (slope == 0)
-                for (int x = Math.min(xStart, xEnd); x <= Math.max(xStart, xEnd); x++)
-                    grid[x][yIntercept]++;
+    public int[][] fillVents(int[][] grid, boolean calculateDiagonals) {
+        if (!calculateDiagonals) {
+            if (isVertical) for (int y = Math.min(yStart, yEnd); y <= Math.max(yStart, yEnd); y++)
+                grid[xIntercept][y]++;
+            else if (slope == 0) for (int x = Math.min(xStart, xEnd); x <= Math.max(xStart, xEnd); x++)
+                grid[x][yIntercept]++;
         } else if (slope != 0) {
             for (int x = Math.min(xStart, xEnd); x <= Math.max(xStart, xEnd); x++)
                 grid[x][slope * x + yIntercept]++;

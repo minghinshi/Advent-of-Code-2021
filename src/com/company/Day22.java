@@ -16,12 +16,12 @@ public class Day22 {
     }
 }
 
-class Reactor{
+class Reactor {
     List<Region> regions = new ArrayList<>();
     List<long[]> lowerBounds = new ArrayList<>();
     List<long[]> upperBounds = new ArrayList<>();
 
-    public Reactor(List<String> input){
+    public Reactor(List<String> input) {
         for (String string : input) {
             regions.add(new Region(string));
             lowerBounds = regions.stream().map(Region::getLowerBound).collect(Collectors.toList());
@@ -29,11 +29,11 @@ class Reactor{
         }
     }
 
-    public long sumAll(){
+    public long sumAll() {
         return sumAll(regions.size());
     }
 
-    public long sumAll(int numberOfRegions){
+    public long sumAll(int numberOfRegions) {
         long total = 0;
         for (int i = 0; i < numberOfRegions; i++) {
             total += countNewLights(i);
@@ -41,13 +41,13 @@ class Reactor{
         return total;
     }
 
-    public long countNewLights(int end){
+    public long countNewLights(int end) {
         List<Integer> intersections = new ArrayList<>();
         intersections.add(end);
         return countNewLights(intersections);
     }
 
-    public long countNewLights(List<Integer> intersections){
+    public long countNewLights(List<Integer> intersections) {
         long minX = intersections.stream().map(this.lowerBounds::get).mapToLong(x -> x[0]).max().orElseThrow();
         long maxX = intersections.stream().map(this.upperBounds::get).mapToLong(x -> x[0]).min().orElseThrow();
         long minY = intersections.stream().map(this.lowerBounds::get).mapToLong(x -> x[1]).max().orElseThrow();
@@ -55,11 +55,10 @@ class Reactor{
         long minZ = intersections.stream().map(this.lowerBounds::get).mapToLong(x -> x[2]).max().orElseThrow();
         long maxZ = intersections.stream().map(this.upperBounds::get).mapToLong(x -> x[2]).min().orElseThrow();
 
-        if(minX > maxX || minY > maxY || minZ > maxZ)
-            return 0L;
-        else{
-            long volume = regions.get(intersections.get(intersections.size()-1)).isTurnOn ? (maxX - minX + 1) * (maxY - minY + 1) * (maxZ - minZ + 1) : 0;
-            for (int i = intersections.get(intersections.size()-1)-1; i >= 0; i--) {
+        if (minX > maxX || minY > maxY || minZ > maxZ) return 0L;
+        else {
+            long volume = regions.get(intersections.get(intersections.size() - 1)).isTurnOn ? (maxX - minX + 1) * (maxY - minY + 1) * (maxZ - minZ + 1) : 0;
+            for (int i = intersections.get(intersections.size() - 1) - 1; i >= 0; i--) {
                 List<Integer> newIntersections = new ArrayList<>(intersections);
                 newIntersections.add(i);
                 volume -= countNewLights(newIntersections);
@@ -69,11 +68,11 @@ class Reactor{
     }
 }
 
-class Region{
+class Region {
     long[] lowerBound = new long[3], upperBound = new long[3];
     boolean isTurnOn;
 
-    public Region(String input){
+    public Region(String input) {
         String[] strings1 = input.split(" ");
         isTurnOn = strings1[0].equals("on");
         String[] strings2 = strings1[1].split(",");
@@ -84,7 +83,7 @@ class Region{
         }
     }
 
-    public long getVolume(){
+    public long getVolume() {
         long volume = 1L;
         for (int i = 0; i < 3; i++) {
             volume *= upperBound[i] - lowerBound[i] + 1;

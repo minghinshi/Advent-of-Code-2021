@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Day11 {
@@ -14,16 +13,16 @@ public class Day11 {
     }
 }
 
-class Grid{
+class Grid {
     Octopus[][] gridOfOctopus;
 
-    public Grid(List<String> input){
+    public Grid(List<String> input) {
         //Fill grid with octopus
         gridOfOctopus = new Octopus[10][10];
         for (int i = 0; i < 10; i++) {
             char[] chars = input.get(i).toCharArray();
             for (int j = 0; j < 10; j++) {
-                gridOfOctopus[i][j] = new Octopus(chars[j]-48);
+                gridOfOctopus[i][j] = new Octopus(chars[j] - 48);
             }
         }
 
@@ -31,11 +30,11 @@ class Grid{
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 Octopus octopus = gridOfOctopus[i][j];
-                for (int k = i - 1; k <= i + 1 ; k++) {
+                for (int k = i - 1; k <= i + 1; k++) {
                     if (k < 0 || k >= 10) continue;
-                    for (int l = j - 1; l <= j + 1 ; l++) {
-                        if(l < 0 || l >= 10) continue;
-                        if(k == i && l == j) continue;
+                    for (int l = j - 1; l <= j + 1; l++) {
+                        if (l < 0 || l >= 10) continue;
+                        if (k == i && l == j) continue;
                         octopus.addNeighbour(gridOfOctopus[k][l]);
                     }
                 }
@@ -43,7 +42,7 @@ class Grid{
         }
     }
 
-    public void Simulate(){
+    public void Simulate() {
         int flashes = 0;
         int step = 0;
 
@@ -64,16 +63,16 @@ class Grid{
                     if (gridOfOctopus[j][k].isFlashing()) {
                         flashes++;
                         gridOfOctopus[j][k].stopFlashing();
-                    }else{
+                    } else {
                         isAllOctopusesFlashing = false;
                     }
                 }
             }
 
             //Display solutions
-            if(step == 100)
+            if (step == 100)
                 System.out.printf("\nAfter 100 steps, the octopuses would have flashed %d times.\n", flashes);
-            if(isAllOctopusesFlashing){
+            if (isAllOctopusesFlashing) {
                 System.out.printf("The octopuses synchronize after %d steps.\n", step);
                 return;
             }
@@ -93,24 +92,24 @@ class Grid{
     }
 }
 
-class Octopus{
+class Octopus {
     List<Octopus> neighbours = new ArrayList<>();
     int energy;
     boolean isFlashing;
 
-    public Octopus(int energy){
+    public Octopus(int energy) {
         this.energy = energy;
         isFlashing = false;
     }
 
-    public void addNeighbour(Octopus octopus){
+    public void addNeighbour(Octopus octopus) {
         neighbours.add(octopus);
     }
 
-    public void increaseEnergy(){
-        if(isFlashing) return;
+    public void increaseEnergy() {
+        if (isFlashing) return;
         energy++;
-        if(energy > 9){
+        if (energy > 9) {
             isFlashing = true;
             for (Octopus neighbour : neighbours) {
                 neighbour.increaseEnergy();
@@ -122,7 +121,7 @@ class Octopus{
         return isFlashing;
     }
 
-    public void stopFlashing(){
+    public void stopFlashing() {
         energy = 0;
         isFlashing = false;
     }

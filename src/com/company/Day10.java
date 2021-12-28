@@ -16,26 +16,26 @@ public class Day10 {
     }
 }
 
-class BrokenLine{
+class BrokenLine {
     private boolean isCorrupted;
     private int syntaxErrorScore;
 
     private final boolean isIncomplete;
     private long completionScore;
 
-    public BrokenLine(String string){
+    public BrokenLine(String string) {
         char[] chars = string.toCharArray();
         Stack<Character> stack = new Stack<>();
 
         //Check for corruption
         for (char c : chars) {
             if (isCorrupted) break;
-            switch (c){
+            switch (c) {
                 case '(', '[', '{', '<':
                     stack.push(c);
                     break;
                 case ')', ']', '}', '>':
-                    if(stack.pop() != getCounterpart(c)){
+                    if (stack.pop() != getCounterpart(c)) {
                         isCorrupted = true;
                         syntaxErrorScore = getSyntaxErrorScore(c);
                     }
@@ -45,14 +45,14 @@ class BrokenLine{
 
         //Check for completeness
         isIncomplete = !isCorrupted;
-        if(isIncomplete){
-            while (!stack.isEmpty()){
+        if (isIncomplete) {
+            while (!stack.isEmpty()) {
                 completionScore = completionScore * 5 + getCompletionScore(stack.pop());
             }
         }
     }
 
-    private char getCounterpart(char c){
+    private char getCounterpart(char c) {
         return switch (c) {
             case ')' -> '(';
             case ']' -> '[';
@@ -62,7 +62,7 @@ class BrokenLine{
         };
     }
 
-    private int getSyntaxErrorScore(char c){
+    private int getSyntaxErrorScore(char c) {
         return switch (c) {
             case ')' -> 3;
             case ']' -> 57;
@@ -72,7 +72,7 @@ class BrokenLine{
         };
     }
 
-    private int getCompletionScore(char c){
+    private int getCompletionScore(char c) {
         return switch (c) {
             case '(' -> 1;
             case '[' -> 2;
@@ -99,29 +99,27 @@ class BrokenLine{
     }
 }
 
-class NavigationSubsystem{
+class NavigationSubsystem {
     private final List<BrokenLine> corruptedLines;
     private final List<BrokenLine> incompleteLines;
 
-    public NavigationSubsystem(List<String> puzzleInput){
+    public NavigationSubsystem(List<String> puzzleInput) {
         corruptedLines = new ArrayList<>();
         incompleteLines = new ArrayList<>();
 
         //Initialize broken lines
         for (String string : puzzleInput) {
             BrokenLine brokenLine = new BrokenLine(string);
-            if(brokenLine.isCorrupted())
-                corruptedLines.add(brokenLine);
-            if(brokenLine.isIncomplete())
-                incompleteLines.add(brokenLine);
+            if (brokenLine.isCorrupted()) corruptedLines.add(brokenLine);
+            if (brokenLine.isIncomplete()) incompleteLines.add(brokenLine);
         }
     }
 
-    public int getTotalSyntaxErrorScore(){
+    public int getTotalSyntaxErrorScore() {
         return corruptedLines.stream().mapToInt(BrokenLine::getSyntaxErrorScore).sum();
     }
 
-    public long getMiddleCompletionScore(){
+    public long getMiddleCompletionScore() {
         return incompleteLines.stream().map(BrokenLine::getCompletionScore).sorted().collect(Collectors.toList()).get(incompleteLines.size() / 2);
     }
 }

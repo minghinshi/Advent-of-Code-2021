@@ -17,10 +17,10 @@ public class Day12 {
     }
 }
 
-class CaveMap{
+class CaveMap {
     HashMap<String, Cave> caveHashMap = new HashMap<>();
 
-    public CaveMap(List<String> input){
+    public CaveMap(List<String> input) {
         for (String str : input) {
             String[] caveNames = str.split("-");
             caveHashMap.putIfAbsent(caveNames[0], new Cave(caveNames[0]));
@@ -30,23 +30,23 @@ class CaveMap{
         }
     }
 
-    public int getNumberOfPaths(boolean allowVisitingSmallCavesTwice){
+    public int getNumberOfPaths(boolean allowVisitingSmallCavesTwice) {
         Path path = new Path(caveHashMap.get("start"), allowVisitingSmallCavesTwice);
         return path.getNumberOfPathsFromHere();
     }
 }
 
-class Cave{
+class Cave {
     String caveName;
     boolean isBig;
     List<Cave> connectedCaves = new ArrayList<>();
 
-    public Cave(String caveName){
+    public Cave(String caveName) {
         this.caveName = caveName;
         isBig = caveName.charAt(0) >= 'A' && caveName.charAt(0) <= 'Z';
     }
 
-    public void addConnection(Cave cave){
+    public void addConnection(Cave cave) {
         connectedCaves.add(cave);
     }
 
@@ -68,14 +68,14 @@ class Cave{
     }
 }
 
-class Path{
+class Path {
     List<Cave> visitedCaves;
     List<Path> childPaths = new ArrayList<>();
     Cave previousCave;
     boolean isTerminal;
     boolean visitedSmallCaveTwice;
 
-    public Path(Cave cave, boolean allowVisitingSmallCaveTwice){
+    public Path(Cave cave, boolean allowVisitingSmallCaveTwice) {
         visitedCaves = new ArrayList<>();
         visitedCaves.add(cave);
         previousCave = cave;
@@ -84,20 +84,18 @@ class Path{
         findChildrenPaths();
     }
 
-    public Path(List<Cave> caves, Cave previousCave, boolean visitedSmallCaveTwice){
+    public Path(List<Cave> caves, Cave previousCave, boolean visitedSmallCaveTwice) {
         visitedCaves = caves;
-        if(!previousCave.isBig() && visitedCaves.contains(previousCave))
-            this.visitedSmallCaveTwice = true;
-        else
-            this.visitedSmallCaveTwice = visitedSmallCaveTwice;
+        if (!previousCave.isBig() && visitedCaves.contains(previousCave)) this.visitedSmallCaveTwice = true;
+        else this.visitedSmallCaveTwice = visitedSmallCaveTwice;
         this.previousCave = previousCave;
         visitedCaves.add(previousCave);
         isTerminal = previousCave.getCaveName().equals("end");
         findChildrenPaths();
     }
 
-    public void findChildrenPaths(){
-        if(isTerminal) return;
+    public void findChildrenPaths() {
+        if (isTerminal) return;
         for (Cave connectedCave : previousCave.getConnectedCaves()) {
             if (connectedCave.getCaveName().equals("start")) continue;
             if (connectedCave.isBig() || !visitedCaves.contains(connectedCave) || !visitedSmallCaveTwice) {
@@ -108,8 +106,8 @@ class Path{
         }
     }
 
-    public int getNumberOfPathsFromHere(){
-        if(isTerminal) return 1;
+    public int getNumberOfPathsFromHere() {
+        if (isTerminal) return 1;
         int count = 0;
         for (Path childPath : childPaths) {
             count += childPath.getNumberOfPathsFromHere();

@@ -30,7 +30,7 @@ public class Day04 {
         for (int i = 0; i < numberOfCalls; i++) {
             int number = remainingNumbers.get(0);
             remainingNumbers.remove(0);
-            System.out.printf("The %s number is %d.\n\n", ordinal(i+1), number);
+            System.out.printf("The %s number is %d.\n\n", ordinal(i + 1), number);
             for (BingoBoard board : bingoBoards) {
                 board.markNumber(number);
                 if (board.checkForVictory()) {
@@ -39,9 +39,9 @@ public class Day04 {
                             Bingo!
                             %s
                             Score: %d
-                          
+                                                      
                             """, board.toString(), board.totalOfUnmarkedNumbers() * number);
-                    if(numberOfBingo == bingoBoards.size()){
+                    if (numberOfBingo == bingoBoards.size()) {
                         System.out.println("Game over!");
                         return;
                     }
@@ -51,14 +51,14 @@ public class Day04 {
 
     }
 
-    public static void GenerateBoards(List<BingoBoard> boards, List<String> allRows){
+    public static void GenerateBoards(List<BingoBoard> boards, List<String> allRows) {
         String[] rowsOfNumbers = new String[5];
         int index = 0;
-        while(allRows.size() != 0) {
-            if(!allRows.get(0).isBlank()){
+        while (allRows.size() != 0) {
+            if (!allRows.get(0).isBlank()) {
                 rowsOfNumbers[index] = allRows.get(0);
                 index++;
-                if(index == 5){
+                if (index == 5) {
                     boards.add(new BingoBoard(rowsOfNumbers));
                     rowsOfNumbers = new String[5];
                     index = 0;
@@ -69,7 +69,7 @@ public class Day04 {
     }
 
     public static String ordinal(int i) {
-        String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        String[] suffixes = new String[]{"th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"};
         return switch (i % 100) {
             case 11, 12, 13 -> i + "th";
             default -> i + suffixes[i % 10];
@@ -77,12 +77,12 @@ public class Day04 {
     }
 }
 
-class BingoBoard{
+class BingoBoard {
     int[][] numbers = new int[5][5];
     boolean[][] isNumberMarked = new boolean[5][5];
     boolean hasWon = false;
 
-    public BingoBoard(String[] strings){
+    public BingoBoard(String[] strings) {
         for (int i = 0; i < 5; i++) {
             String[] numberStrings = strings[i].trim().split(" +");
             for (int j = 0; j < 5; j++) {
@@ -91,11 +91,11 @@ class BingoBoard{
         }
     }
 
-    public void markNumber(int number){
+    public void markNumber(int number) {
         boolean found = false;
         for (int i = 0; (i < 5 && !found); i++) {
             for (int j = 0; (j < 5 && !found); j++) {
-                if(numbers[i][j] == number){
+                if (numbers[i][j] == number) {
                     found = true;
                     isNumberMarked[i][j] = true;
                 }
@@ -103,10 +103,10 @@ class BingoBoard{
         }
     }
 
-    public boolean checkForVictory(){
+    public boolean checkForVictory() {
         if (hasWon) return false;
         for (int i = 0; i < 5; i++) {
-            if(checkOneLine(i, false) || checkOneLine(i, true)){
+            if (checkOneLine(i, false) || checkOneLine(i, true)) {
                 hasWon = true;
                 return true;
             }
@@ -114,15 +114,14 @@ class BingoBoard{
         return false;
     }
 
-    boolean checkOneLine(int order, boolean checkVertical){
+    boolean checkOneLine(int order, boolean checkVertical) {
         for (int i = 0; i < 5; i++) {
-            if(!isNumberMarked[(checkVertical ? i : order)][(checkVertical ? order : i)])
-                return false;
+            if (!isNumberMarked[(checkVertical ? i : order)][(checkVertical ? order : i)]) return false;
         }
         return true;
     }
 
-    public int totalOfUnmarkedNumbers(){
+    public int totalOfUnmarkedNumbers() {
         int output = 0;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {

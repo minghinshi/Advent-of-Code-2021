@@ -3,7 +3,6 @@ package com.company;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,12 +25,12 @@ public class Day06 {
             updatedNumberOfFish[8] += numberOfFish[0];
             numberOfFish = updatedNumberOfFish;
 
-            if(i == 79 || i == 255){
+            if (i == 79 || i == 255) {
                 long total = 0;
                 for (long l : numberOfFish) {
                     total += l;
                 }
-                System.out.printf("After %d days, there would be %s lanternfish.\n", i+1, total);
+                System.out.printf("After %d days, there would be %s lanternfish.\n", i + 1, total);
             }
         }
     }
