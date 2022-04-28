@@ -44,8 +44,8 @@ class MONADSolver {
             int[] aluOutput = aluModel.execute(input, currentIndex * 18 + 6);
             if (aluOutput[1] >= 1 && aluOutput[1] <= 9) {
                 input[currentIndex] = aluOutput[1];
-                return solve(input, lowest);
             }
+            return solve(input, lowest);
         } else {
             for (int i = 1; i <= 9; i++) {
                 int[] newNumber = new int[currentIndex + 1];
@@ -55,7 +55,7 @@ class MONADSolver {
                 if (solution != -1) return solution;
             }
         }
-        return -1;
+        throw new RuntimeException("No solution!");
     }
 }
 

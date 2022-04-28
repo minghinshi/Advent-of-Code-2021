@@ -103,7 +103,7 @@ class Matrix {
     }
 
     public Matrix multiply(Matrix other) {
-        if (rows != other.getColumns()) throw new RuntimeException("Matrices cannot be multiplied");
+        if (rows != other.getColumns()) throw new RuntimeException("Matrices cannot be multiplied due to incompatible sizes");
         int[][] otherTable = other.getTable();
         int[][] newTable = new int[columns][other.getRows()];
         for (int i = 0; i < columns; i++) {
